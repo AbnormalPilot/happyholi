@@ -83,7 +83,7 @@ export default function Page({ params }: { params: { name: string } }) {
 
             <div className='flex h-screen justify-center  w-screen '>
                 <div>
-                    <span><Image src={giff} alt='gif1' height={400} width={600} /> </span>
+                    <span><Image src={giff} alt='gif1' height={300} width={500} /> </span>
 
 
                     <span className='flex items-center justify-center text-4xl font-bold text-black'>  {/* Removed gradient and set text color to black */}
