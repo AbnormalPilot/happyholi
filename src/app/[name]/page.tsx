@@ -45,14 +45,14 @@ export default function Page({ params }: { params: { name: string } }) {
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
         const newShareUrl = `https://happyholi.vercel.app/${event.target.value}`;
-        const new_msg = `Wishing you and your family a Holi 😄 that’s as sweet as gujiyas 🥟, as bright as rangolis ✨, and as joyful😇 as laughter😁. Also ${event.target.value} have Surprise 🤫 for you!!! `;
+        const new_msg = `Wishing you and your family a Holi 😄 that’s as sweet as gujiyas 🥟, as bright as Gulal ✨, and as joyful😇 as laughter😁. Also ${event.target.value} have Surprise 🤫 for you!!! `;
         newlink(new_msg);
         setShareUrl(newShareUrl); // Update shareUrl dynamically
-        
+
     };
 
     return (
-        <div className=' overflow-hidden'>
+        <div className=' overflow-hidden bg-red-400'>
             <ReactAudioPlayer
                 src={a1}
                 autoPlay
@@ -98,22 +98,23 @@ export default function Page({ params }: { params: { name: string } }) {
                                     </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 py-4">
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="name" className="text-right">
+                                    <div className="grid grid-cols-4 items-center gap-2">
+                                        <Label htmlFor="name" className="text-left">
                                             Name
                                         </Label>
-                                        <Input type="name" id='new_name' placeholder={params.name} onChange={handleInputChange} className="col-span-3" />
+                                        <Input type="name" id='new_name' placeholder={params.name} onChange={handleInputChange} className="col-span-2" />
+                                        <div className='p-3'>
+                                        <WhatsappShareButton
+                                            url={shareUrl}
+                                            title={newmsg}
+                                        >
+                                            <WhatsappIcon size={39} round />
+                                        </WhatsappShareButton>
+                                        </div>
                                     </div>
 
                                 </div>
-                                <DialogFooter>
-                                    <WhatsappShareButton
-                                        url={shareUrl}
-                                        title={newmsg}
-                                    >
-                                        <WhatsappIcon size={50} round />
-                                    </WhatsappShareButton>
-                                </DialogFooter>
+
                             </DialogContent>
                         </Dialog>
                     </div>
