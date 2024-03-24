@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { name: string } }) {
     };
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
-        const newShareUrl = `https://github.com/${event.target.value}`;
+        const newShareUrl = `https://happyholi.vercel.app/${event.target.value}`;
         const new_msg = `Wishing you and your family a Holi 😄 that’s as sweet as gujiyas 🥟, as bright as rangolis ✨, and as joyful😇 as laughter😁. Also ${event.target.value} have Surprise 🤫 for you!!! `;
         newlink(new_msg);
         setShareUrl(newShareUrl); // Update shareUrl dynamically
