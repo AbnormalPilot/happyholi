@@ -24,7 +24,7 @@ import giff from '../../../public/go4.gif';
 
 import ReactAudioPlayer from 'react-audio-player';
 
-import a1 from '../../../public/audio/holi.wav'
+import a1 from '../../../public/holi.wav'
 
 function randomInRange(min: number, max: number) {
     return Math.random() * (max - min) + min;
