@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -34,6 +34,22 @@ export default function Page({ params }: { params: { name: string } }) {
     const [inputValue, setInputValue] = useState(params.name);
     const [shareUrl, setShareUrl] = useState('');
     const [newmsg, newlink] = useState('');
+    const [isDesktop, setIsDesktop] = useState(true); // Assume desktop initially
+    const [shouldPlayAudio, setShouldPlayAudio] = useState(false);
+
+    useEffect(() => {
+        const checkDeviceType = () => {
+            const userAgent = window.navigator.userAgent;
+            setIsDesktop(!/(android|iphone|ipad)/i.test(userAgent)); // Detect mobile devices
+        };
+
+        checkDeviceType();
+        window.addEventListener('resize', checkDeviceType); // Recheck on resize
+
+        return () => window.removeEventListener('resize', checkDeviceType);
+    }, []);
+
+
     const handleConfetti = () => {
         confetti({
             angle: randomInRange(55, 125),
@@ -41,6 +57,7 @@ export default function Page({ params }: { params: { name: string } }) {
             particleCount: randomInRange(50, 100),
             origin: { y: 0.8 },
         });
+        setShouldPlayAudio(true);
     };
     const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
@@ -51,13 +68,10 @@ export default function Page({ params }: { params: { name: string } }) {
 
     };
 
+
     return (
         <div className=' overflow-hidden bg-red-400'>
-            <ReactAudioPlayer
-                src={a1}
-                autoPlay
-                loop
-            />
+
 
             <div className='fixed bottom-0 left-0 transform translate-y-1/2 -translate-x-1/2'>
                 <Image src={pic} alt="Rangoli" height={400} width={600} />
@@ -84,6 +98,13 @@ export default function Page({ params }: { params: { name: string } }) {
                         Press me
 
                     </Button>
+                    {shouldPlayAudio && (
+                        <ReactAudioPlayer
+                            src={a1}
+                            autoPlay={isDesktop} // Enable autoplay only on desktop
+                            loop
+                        />
+                    )}
 
                     <div className='relative p-6'>
                         <Dialog>
@@ -104,12 +125,12 @@ export default function Page({ params }: { params: { name: string } }) {
                                         </Label>
                                         <Input type="name" id='new_name' placeholder={params.name} onChange={handleInputChange} className="col-span-2" />
                                         <div className='p-3'>
-                                        <WhatsappShareButton
-                                            url={shareUrl}
-                                            title={newmsg}
-                                        >
-                                            <WhatsappIcon size={39} round />
-                                        </WhatsappShareButton>
+                                            <WhatsappShareButton
+                                                url={shareUrl}
+                                                title={newmsg}
+                                            >
+                                                <WhatsappIcon size={39} round />
+                                            </WhatsappShareButton>
                                         </div>
                                     </div>
 
