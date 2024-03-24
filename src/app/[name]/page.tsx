@@ -101,7 +101,7 @@ export default function Page({ params }: { params: { name: string } }) {
                     {shouldPlayAudio && (
                         <ReactAudioPlayer
                             src={a1}
-                            autoPlay={isDesktop} // Enable autoplay only on desktop
+                            autoPlay // Enable autoplay only on desktop
                             loop
                         />
                     )}
